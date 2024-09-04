@@ -1,0 +1,53 @@
+@startuml Empresa Eventos 
+skinparam style strictuml
+skinparam ActorBackgroundColor aliceblue
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam UsecaseBackgroundColor aliceblue
+skinparam UsecaseBorderColor black
+skinparam ArrowColor black
+left to right direction 
+
+actor Clientes
+Actor Partipantes 
+actor "Representantes da Empresa" as RepEmpresa
+
+
+rectangle "Empresa de Eventos" as rec {
+    ' Representante 
+    usecase "Cadastrar Evento" as CadEven
+    usecase "Divulgar Evento" as DivEvento
+    usecase "Acrescentar Lista Clientes" as AddCliente
+    usecase "Emitir Relátorio" as EmitirRel
+    usecase "Fazer balanço" as Balanco
+    usecase "Realizar Evento" as RealizarEven
+    ' Cliente
+    usecase "Cadastrar Cliente" as CadCli
+    usecase "Definir Evento" as DefEvento
+
+    usecase "Verificar Existencia" as Verificar
+    usecase "Dados do Cliente Atualizados" as AttCli
+
+    RepEmpresa - CadEven
+    RepEmpresa -right- AddCliente
+    RepEmpresa -- EmitirRel
+    RepEmpresa -- Balanco
+    RepEmpresa -- CadCli
+    RepEmpresa -- DivEvento
+    RepEmpresa -- DefEvento
+
+
+    DefEvento - DivEvento
+    DivEvento - EmitirRel
+    EmitirRel -- RealizarEven
+    RealizarEven - Balanco
+
+    
+    Clientes -down- CadCli
+    Clientes -[hidden]- CadEven
+    CadCli .> "<<includes>>" CadEven
+    CadCli ..> "<<extends>>" Verificar
+    CadCli ..> "<<extends>>" AttCli
+}
+
+@enduml

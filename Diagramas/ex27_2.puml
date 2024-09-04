@@ -1,0 +1,32 @@
+@startuml DiagramaEx2
+skinparam style strictuml
+skinparam ActorBackgroundColor aliceblue
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam UsecaseBackgroundColor aliceblue
+skinparam UsecaseBorderColor black
+skinparam ArrowColor black
+left to right direction 
+actor Vendedor
+actor Caixa
+actor Cliente 
+actor SPC 
+actor Gerente
+rectangle "Loja de eletrodomesticos"{
+:Cliente: -- (Realizar Compra)
+:Vendedor: -- (Efetuar Venda)
+:Vendedor: -- (Emitir Relátorio de Venda)
+' <-. "<<include>>" (Nota Fiscal)
+(Emitir Relátorio de Venda) <. "<<include>>" (Receber Relátorio Mensal)
+:Caixa: -- (Verifica o Status do Cliente)
+:Caixa: -- (Receber Pagamentos)
+(Emitir Nota Fiscal) <.- "<<include>>" (Receber Pagamentos)
+:SPC: -- (Verifica o Status do Cliente)
+
+' (Receber Pagamentos) - (Emitir Nota Fiscal)
+(Efetuar Venda) -.> "<<include>>"(Emitir Pedido)
+(Realizar Compra) -.>"<<include>>" (Efetuar Venda)
+(Emitir Nota Fiscal) -.> "<<include>>" (Realizar Baixa no Estoque)
+Gerente -- (Receber Relátorio Mensal)
+}
+@enduml

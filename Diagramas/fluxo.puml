@@ -1,0 +1,29 @@
+@startuml
+skinparam style strictuml
+skinparam ActorBackgroundColor aliceblue
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam UsecaseBackgroundColor aliceblue
+skinparam UsecaseBorderColor black
+skinparam ArrowColor black
+actor Cliente
+actor Funcionario 
+
+rectangle "Venda e Locação" as Venda {
+:Cliente: -- (Comprar) 
+:Cliente: -left- (Cadastrar)
+:Cliente: -- (Locar)
+
+(Locar) -.>  "<<extends>>" (Emitir recibo)
+(Locar) -.> "<<extends>>" (Cadastrar)
+(Comprar) -.> "<<extends>>" (Emitir recibo)
+
+(Emitir recibo) <-- (recibo venda)
+(Emitir recibo) <-- (recibo alocação)
+
+
+:Funcionario: -- (Atender Cliente)
+:Funcionario: -- (Conferir Pagamento)
+:Funcionario: -- (Emitir recibo)
+}
+@enduml

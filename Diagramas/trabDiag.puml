@@ -1,0 +1,39 @@
+@startuml DiagramaTrabalho
+skinparam style strictuml
+skinparam ActorBackgroundColor aliceblue
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam UsecaseBackgroundColor aliceblue
+skinparam UsecaseBorderColor black
+skinparam ArrowColor black
+left to right direction 
+actor Morador 
+actor Porteiro 
+actor Entregador 
+rectangle "SAC - Encomendas" as SAC {
+
+    usecase "Receber Notificação da Encomenda" as Status
+    usecase "Entregar Encomenda para Portaria" as Entraga
+    usecase "Notificar Morador" as Notificar
+    usecase "Receber Encomenda" as Receber
+    usecase "Registrar Encomenda" as Registrar
+    usecase "Retirar Encomenda" as Retirar
+
+
+    :Entregador: -up- (Entraga)
+    (Entraga) .up.> "<<include>>"(Receber)
+    :Porteiro: --  (Receber)
+    (Receber) .> "<<include>>"(Registrar)
+    :Porteiro: -- (Notificar)
+    Porteiro -down- Registrar
+    Registrar .> "<<include>>" Notificar
+    Notificar .> "<<include>>"(Status)
+    Status .> "<<extends>>"Retirar
+
+
+    :Morador: -- Retirar
+    Morador -- Status
+
+}
+
+@enduml

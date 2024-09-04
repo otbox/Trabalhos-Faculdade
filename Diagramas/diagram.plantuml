@@ -1,0 +1,55 @@
+@startuml CasasNaPraia
+skinparam style strictuml
+hide empty members 
+skinparam ClassBorderColor black
+skinparam ArrowColor black 
+skinparam ClassBackgroundColor aliceblue
+
+Title Imobiliaria
+
+class "Cliente" as Cliente {
+    name : string 
+    código : int
+    reservar()
+}
+
+class "Reserva" as Reserva {
+    numero : int
+    dataInicio : date
+    dataFim : date
+}
+
+class "NotaFiscal" as NotaFiscal {
+    Despesas : Despesa[ ]
+    valorTotal : int
+}
+
+class "Boleto" as Boleto {
+    numeroDoBoleto : int
+    pagarBoleto()
+    dataDeVencimento : date
+    valorDoAluguel : double 
+    boletoPago : boolean 
+}
+
+class "Despesa" as Despesa {
+    numero : int
+    data : date 
+    descrição : String 
+    Qnt : int 
+    Valor : Double
+} 
+
+class "Casa" as Casa {
+    numero : int
+    Disponivel : boolean 
+}
+
+' object "Jose" as Cliente
+Imobiliaria "1" -- "0..*" Cliente
+Cliente "1" -- "0..*" Reserva
+Cliente "1" -- "0..*" Boleto
+Cliente "1" -- "1" NotaFiscal
+Cliente "1" -- "0..*" Despesa
+Reserva "1" -up- "1..*" Casa
+@enduml

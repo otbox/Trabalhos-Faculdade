@@ -1,0 +1,47 @@
+@startuml Imobiliaria Objetos
+skinparam style strictuml
+skinparam ObjectBorderColor black
+skinparam ArrowColor black 
+skinparam ObjectBackgroundColor aliceblue
+Title Imobiliaria Objetos
+
+object "José Ângelo Martins : Cliente" as Cliente{
+    codigo = 2.803 
+    nome = José Ângelo Martins
+}
+object "Reserva" as Reserva{
+    numero = 1.088.2812
+    dataInicio = 01/05/2020 
+    dataFim =  02/05/2020
+}
+
+' object "notaFiscal" as notaFiscal {
+'       numero = ???
+
+' } 
+
+object "Despesa n.º 199.029.881" as Despesa {
+    Numero = 199.029.881
+    Data = 01/05/2020 
+    Descrição = Sanduíche misto 
+    Quantidade = 1 
+    Valor= R$ 6,50
+}
+
+object "Despesa n.º 201.992.100" as Despesa1 {
+    Numero = 201.992.100
+    Data = 02/05/2020 
+    Descrição = Refrigerante em lata
+    Quantidade = 2  
+    Valor = R$ 3,00
+}
+
+object "Casa nº11" as Casa{
+    numero = 11
+    disponivel = true
+}
+Despesa *--  Cliente
+Despesa1 *--  Cliente
+Reserva *- Cliente
+Casa o- Reserva
+@enduml
