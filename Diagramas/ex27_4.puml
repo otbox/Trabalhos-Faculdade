@@ -27,6 +27,7 @@ rectangle "Empresa de Eventos" as rec {
 
     usecase "Verificar Existencia" as Verificar
     usecase "Dados do Cliente Atualizados" as AttCli
+ 
 
     RepEmpresa - CadEven
     RepEmpresa -right- AddCliente
@@ -48,6 +49,8 @@ rectangle "Empresa de Eventos" as rec {
     CadCli .> "<<includes>>" CadEven
     CadCli ..> "<<extends>>" Verificar
     CadCli ..> "<<extends>>" AttCli
+
+    Partipantes - DivEvento
 }
 
 @enduml
