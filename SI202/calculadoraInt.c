@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-int soma (float n1, float n2) {return n1 + n2;}
-int subtrai (float n1, float n2) {return n1 - n2;}
-int divide (float n1, float n2) {return n1 / n2;}
-int multiplica (float n1, float n2) {return n1 * n2;}
-int eleva (float n1, float n2) {return pow(n1, n2);}
+float soma (float n1, float n2) {return n1 + n2;}
+float subtrai (float n1, float n2) {return n1 - n2;}
+float divide (float n1, float n2) {return n1 / n2;}
+float multiplica (float n1, float n2) {return n1 * n2;}
+float eleva (float n1, float n2) {return pow(n1, n2);}
 
 
 int main () {
