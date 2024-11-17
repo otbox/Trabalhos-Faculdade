@@ -1,0 +1,48 @@
+@startuml SeqReportarIrregularidade
+skinparam style strictuml
+skinparam ActorBackgroundColor white
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam BoundaryBackgroundColor white
+skinparam BoundaryBorderColor black
+skinparam ControlBackgroundColor white
+skinparam ControlBorderColor black
+skinparam EntityBackgroundColor white
+skinparam EntityBorderColor black
+skinparam ArrowColor black
+skinparam SequenceLifeLineBackgroundColor white
+skinparam SequenceLifeLineBorderColor black
+skinparam BackgroundColor white
+
+actor Usuario
+boundary "Tela de Reportar Irregularidade" as TelaRegularidade
+control "Submeter Informações" as Submeter
+entity BD
+control "Notificar os Seguranças" as Notificar
+boundary "Tela Menu Inicial" as TelaMenu
+
+Usuario ++
+Usuario -> TelaRegularidade --++ : Acessar Sistema
+TelaRegularidade ++
+TelaRegularidade -> TelaRegularidade ++ : preencherFormulario()
+TelaRegularidade --
+TelaRegularidade -> Submeter -- : SubmeterIrregularidade()
+Submeter ++
+Submeter -> BD ++: GravarIrregularidade()
+BD --> Submeter --: Retorno de Status
+Submeter --> TelaRegularidade ++: [Se Sucesso] MensagemSucesso()
+TelaRegularidade -> TelaRegularidade ++ : LimparFormulario()
+TelaRegularidade --
+TelaRegularidade --> Usuario ++ : Pronto para Nova\n Irregularidade
+Usuario --
+Submeter --> TelaRegularidade ++: [Se Erro] MensagemErro()
+TelaRegularidade -> TelaMenu ++ : irTelaMenu()
+TelaRegularidade --
+TelaRegularidade --
+Submeter -> Notificar ++: [Se Sucesso] NotificarNovaIrregularidade()
+Submeter --
+Notificar -> Notificar ++ : 
+TelaMenu --> Usuario ++
+TelaMenu -\ Usuario :  Monstrar() 
+
+@enduml

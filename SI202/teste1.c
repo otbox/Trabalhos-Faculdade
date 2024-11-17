@@ -1,10 +1,22 @@
 #include<stdio.h>
 int main(){
-int i;
-for(i = 1; i < 9; i++){
-int aux = 0;
-aux += i*i;
+int a, b;
+a = 8;
+b = 5;
+int *pont, *outropont;
+pont = &a;
+outropont =&b;
+*pont = *outropont + 3;
+
+printf("%d", *pont - 5);
+// printf("%d", )
 }
-printf("%d\n", aux);
-return 0;
+
+int strlenght(char *string){
+    int c = 0;
+    while(string[c] != '\0'){
+        c++;
+    }
+    return c;
 }
+

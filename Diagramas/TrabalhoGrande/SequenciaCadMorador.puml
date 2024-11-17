@@ -1,0 +1,45 @@
+@startuml DiagSequenciaCadastroMorador
+skinparam style strictuml
+skinparam ActorBackgroundColor white
+skinparam ActorBorderColor black
+skinparam BackgroundColor white
+skinparam BoundaryBackgroundColor white
+skinparam BoundaryBorderColor black
+skinparam ControlBackgroundColor white
+skinparam ControlBorderColor black
+skinparam EntityBackgroundColor white
+skinparam EntityBorderColor black
+skinparam ArrowColor black
+skinparam SequenceLifeLineBackgroundColor white
+skinparam SequenceLifeLineBorderColor black
+skinparam BackgroundColor white
+actor Usuario
+boundary "Tela Login" as TelaLogin
+control "Acessar Criar Conta" as AcessConta
+boundary "Tela Criar Conta" as TelaConta
+boundary "Requisitar Criação de Conta" as ReqCriarConta
+entity BD
+
+activate Usuario
+Usuario -> TelaLogin --++: "Acessar Sistema"
+activate TelaLogin
+TelaLogin -> AcessConta --++ : Selecionar telaCriarConta()
+activate AcessConta
+AcessConta -> TelaConta -- : abrir telaCriarConta()
+activate TelaConta
+TelaConta -> TelaConta ++ : preencherFormulario()
+deactivate
+TelaConta -> ReqCriarConta --++ : criarConta()
+activate ReqCriarConta
+ReqCriarConta -> BD ++: gravarConta()
+BD --> ReqCriarConta : Status da Requsição
+ReqCriarConta --> TelaConta ++ : [Se Sucesso] mostrarMensagemSucesso()
+ReqCriarConta --> TelaConta  : [Se Falha] mostrarMensagemFalha()
+TelaConta -> TelaLogin --++: retornarTelaLogin()
+TelaLogin ++
+TelaLogin -->  Usuario --
+Usuario++
+
+
+
+@enduml
