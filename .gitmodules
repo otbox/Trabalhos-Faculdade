@@ -1,3 +1,6 @@
 [submodule "SI100"]
     path = SI100
     url = https://github.com/otbox/SI100.git
+[submodule "Graph-QL-API"]
+	path = Graph-QL-API
+	url = https://github.com/otbox/Graph-QL-API
