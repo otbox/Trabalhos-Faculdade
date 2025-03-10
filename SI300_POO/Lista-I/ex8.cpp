@@ -123,8 +123,8 @@ class FornoLenha : public Forno {
 
 int main () {
     Forno *FornoClassico = new Forno(100.0f);
+    cout << "Forno Classico Temperatura Inicial: " << FornoClassico->getTemperatura();
     FornoClassico->setTemperatura(3000.0f);
-
     FornoClassico->getStatus();
 
     FornoEletrico *FornoEletrico1 = new FornoEletrico(100.0f, 230);
@@ -136,6 +136,6 @@ int main () {
     FornoPetroleo * FornoPetroleo1 = new FornoPetroleo(100,200, 30);
 
     FornoGas * FornoGas1 = new FornoGas(230.0f, 23.0f);
-    
+
     return 0;
 }
