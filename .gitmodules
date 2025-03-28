@@ -4,9 +4,9 @@
 [submodule "Graph-QL"]
 	path = GraphQL
 	url = https://github.com/otbox/Graph-QL-API.git
-[submodule "SI300_POO"]
-    path = SI300_POO
-    url = https://github.com/otbox/SI300_POO.git
 [submodule "Graph-QL-API"]
 	path = Graph-QL-API
 	url = https://github.com/otbox/Graph-QL-API.git
+[submodule "SI300_POO"]
+	path = SI300_POO
+	url = https://github.com/otbox/SI300_POO
