@@ -6,4 +6,4 @@
 	url = https://github.com/otbox/Graph-QL-API
 [submodule "SI300_POO"]
     path = SI300_POO
-    url = https://github.com/otbox/SI300.git
+    url = https://github.com/otbox/SI300_POO.git
