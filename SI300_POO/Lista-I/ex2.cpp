@@ -3,14 +3,25 @@
 using namespace std;
 
 int main() { 
-    int n1;
-    double n2;
-    string text;
+    int inteiro;
+    float flutuante;
+    string texto;
 
-    cout << "Entre com Inteiro, Float e uma String";
-    cin >> n1 >> n2 >> text;
+    cout << "Digite um número inteiro: ";
+    cin >> inteiro;
+    
+    cout << "Digite um número um ponto flutuante: ";
+    cin >> flutuante;
+    
+    cin.ignore(); 
+    
+    cout << "Digite uma string: ";
+    getline(cin, texto);
 
-    cout << n1 << " , " << n2 <<" , " << text << endl;
+
+
+    cout << inteiro << " , " << flutuante <<" , " << texto << endl;
+
 
     return 0;
 }
