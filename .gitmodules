@@ -2,8 +2,8 @@
     path = SI100
     url = https://github.com/otbox/SI100.git
 [submodule "Graph-QL-API"]
-	path = Graph-QL
-	url = https://github.com/otbox/Graph-QL-API
+	path = GraphQL
+	url = https://github.com/otbox/Graph-QL-API.git
 [submodule "SI300_POO"]
     path = SI300_POO
     url = https://github.com/otbox/SI300_POO.git
