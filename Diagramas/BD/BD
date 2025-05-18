@@ -1,0 +1,21 @@
+Hotel = {"Código", nome, categoria, endereco, diaria}
+
+Reserva = {"CódigoHotel","PCliente","dtreserva", dtchegada, dtsaida, ndiarias }
+    - CódigoHotel chave estrangeira referecia Hotel
+    - PCliente chave estrangerira referecia cliente
+
+Pessoa = {"Código", nome, endereco,type}
+
+Cliente = {""nPassaporte"", "pCódigo", dtnasc }
+    pCódigo referecia chave estrangeira Pessoa
+
+
+Passagem = {"Código", ""PCliente"", origem, destino, valor}
+    - PCliente chave estrangeira  referecia Cliente
+
+Atendente = {"pCódigo",Salário}
+    - pCódigo chave estrangeira referecia Pessoa
+
+Venda = {"passagemCódigo", "fCódigo", data, hora, }
+    - passagemCódigo chave estrangeira referecia Passagem
+    - fCódigo chave estrangeira referncia Atendente
