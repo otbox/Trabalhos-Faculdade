@@ -10,3 +10,6 @@
 [submodule "SI300_POO"]
 	path = SI300_POO
 	url = https://github.com/otbox/SI300_POO
+[submodule "SI304_ESII/eng-software-automovel"]
+	path = SI304_ESII/eng-software-automovel
+	url = https://github.com/otbox/eng-software-automovel
