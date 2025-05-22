@@ -1,27 +1,44 @@
 #include <iostream>
 #include <vector>
 using namespace std; 
+
+// int atualizarValor()
+
+
 int main () {
 
     int N, M;
     cin >> N >> M;
     
-    vector<vector<int>> vertx(N);
-    vector<int> verify(N);
+    vector<vector<int>> vertx(N + 1);
+    vector<int> verify(N + 1);
 
     int sobraRuas = 0;
     int faltaRuas = 0;
-
+    int raiz = 1;
     for (int i = 0; i < M; i++) {
         int a,b;
-        cin >> a >> b;
-        // verify[b - 1]++;
-        // verify[a - 1]++;
-        // if (verify[b - 1] > 1){
-        //     sobraRuas++;
-        // }
-        vertx[a - 1].push_back(b - 1);
+        cin >> b >> a;
+        vertx[a].push_back(b);
     }
+
+    // RuasConstruidas precisa ser = a quantidade de vertices caso nao falha
+    int ruasContruidas = 0;
+    int c1 = 0;
+    for (int i = 0;  i < vertx.size(); i++) {
+        while(true) {
+            if (vertx[i][0] == i) {
+                cout << raiz;
+            }  
+
+        }
+    }
+
+    for (vector<int> i : vertx) {
+        if (i.size() > 1)  
+            sobraRuas++;
+    }
+
 
 
     for (int i = 0; i < N; i++){
@@ -45,6 +62,8 @@ int main () {
     cout << endl;
     if (sobraRuas != 0 || faltaRuas != 0){
         cout << "RUIM " << sobraRuas << " " << faltaRuas << endl; 
+    }else {
+        cout << "BOM"; 
     }
 
 
