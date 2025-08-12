@@ -1,0 +1,83 @@
+.post-it {
+    background-color: #fffacd; /* Pale yellow */
+    padding: 1.5em;
+    border-radius: 6px;
+    border-end-end-radius: 20px;
+    width: auto;
+    height: fit-content;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for absolute positioning of tap */
+    transition: transform 0.3s ease-out;
+    color: rgb(85, 85, 85);
+    overflow: hidden;
+}
+
+.post-it-button {
+    background-color: #fffacd; /* Pale yellow */
+    padding: 1.25em;
+    border-radius: 6px;
+    border-end-end-radius: 20px;
+    width: auto;
+    height: fit-content;
+    margin: 0rem 1em 1em 0em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for absolute positioning of tap */
+    transition: transform 0.3s ease-out;
+    color: rgb(85, 85, 85);
+    overflow: hidden;
+}
+
+.post-it-button:hover {
+    animation: bounce 2s infinite forwards; 
+    cursor: pointer;
+}
+
+.post-it-button div {
+    align-items: center;
+    justify-content: center;
+}
+
+.post-it-button h3 {
+    margin-left: 1rem;
+}
+
+.post-it h2 {
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.post-it h3 {
+    /* margin-left: 2rem; */
+    font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.post-it li {
+    font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.post-it p {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.post-it-tap {
+    background-color: #fffacd;
+    position: absolute;
+    bottom: -4px;
+    right: -18px;
+    width: 40px;
+    height: 20px;
+    border-bottom-right-radius: 8px;
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.post-it-button .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}

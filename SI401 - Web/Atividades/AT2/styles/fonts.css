@@ -1,0 +1,47 @@
+.kalam-light {
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kalam-regular {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kalam-bold {
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.tillana-regular {
+  font-family: "Tillana", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tillana-medium {
+  font-family: "Tillana", system-ui;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.tillana-semibold {
+  font-family: "Tillana", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.tillana-bold {
+  font-family: "Tillana", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.tillana-extrabold {
+  font-family: "Tillana", system-ui;
+  font-weight: 800;
+  font-style: normal;
+}

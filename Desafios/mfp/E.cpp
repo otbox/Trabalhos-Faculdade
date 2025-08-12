@@ -26,8 +26,6 @@ int main( ){
         }
     }
 
-    for(vector<int> i : )
-
 }
 
 //Verificar se algum numero se repete,

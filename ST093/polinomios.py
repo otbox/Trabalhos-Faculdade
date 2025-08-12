@@ -1,0 +1,3 @@
+
+teste = []
+while (c) 
