@@ -13,3 +13,6 @@
 [submodule "SI304_ESII/eng-software-automovel"]
 	path = SI304_ESII/eng-software-automovel
 	url = https://github.com/otbox/eng-software-automovel
+[submodule "SI401-ProgWeb"]
+	path = SI401-ProgWeb
+	url = https://github.com/otbox/SI401-ProgWeb.git

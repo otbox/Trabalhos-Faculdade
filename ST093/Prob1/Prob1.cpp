@@ -2,6 +2,16 @@
 using namespace std;
 
 
+const int MAXN = 1e5 + 5;
+vector<int> adj[MAXN];
+vector<int> visited(MAXN);
+
+
+int calcular(string D) {
+    
+    if ()
+}
+
 int main (){
     ios::sync_with_stdio();
     cin.tie(0);
@@ -10,7 +20,8 @@ int main (){
     cin >> N;
     for (int i = 0; i < N; i++)
     {
-        scanf("%c:%c",)
+        string dis;
+        cin >> dis;
     }
     
 
