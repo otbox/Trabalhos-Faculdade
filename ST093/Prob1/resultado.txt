@@ -1,0 +1,109 @@
+prob1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, vector<string>> pre;
+map<string, int> memo;
+
+int semestre(string d)
+{
+    if (pre[d].empty())
+        return 1;
+    if (memo.count(d))
+        return memo[d];
+    int max = 0;
+    for (auto &d2 : pre[d])
+    {
+        int s = semestre(d2);
+        if (s > max)
+            max = s;
+    }
+    return memo[d] = max + 1;
+}
+
+int main()
+{
+    ios::sync_with_stdio();
+    cin.tie(0);
+
+    string d, p;
+    set<string> disciplinas;
+    int N;
+    cin >> N;
+    clock_t inicio = clock();
+    while (cin >> d)
+    {
+        size_t pos = d.find(':');
+        if (pos != string::npos)
+        {
+            string disc = d.substr(0, pos);
+            string prereq = d.substr(pos + 1);
+            disciplinas.insert(disc);
+            if (!prereq.empty())
+            {
+                pre[disc].push_back(prereq);
+                disciplinas.insert(prereq);
+            }
+        }
+        else
+        {
+            disciplinas.insert(d);
+        }
+    }
+    int resposta = 0;
+    for (auto &disc : disciplinas)
+    {
+        resposta = max(resposta, semestre(disc));
+    }
+    clock_t fim = clock();
+    double tempo = double(fim - inicio) / CLOCKS_PER_SEC;
+    cout << resposta << " semestres\n";
+    cout << "Executado em " << tempo << " segundos\n";
+}
+
+problema a:
+resposta:
+2 semestres
+Executado em 0.000145 segundos
+
+problema b:
+resposta:
+4 semestres
+Executado em 5e-05 segundos
+
+problema c:
+resposta:
+4 semestres
+Executado em 0.000253 segundos
+
+problema d:
+5 semestres
+Executado em 0.000288 segundos
+
+problema e:
+3 semestres
+Executado em 0.000251 segundos
+
+problema f:
+4 semestres
+Executado em 0.000236 segundos
+
+problema g:
+4 semestres
+Executado em 0.000725 segundos
+
+problema h:
+8 semestres
+Executado em 0.057641 segundos
+
+problema i:
+21 semestres
+Executado em 0.005573 segundos
+
+problema j:
+71 semestres
+Executado em 0.062061 segundos
+
+problema k:
+105 semestres
+Executado em 0.29057 segundos

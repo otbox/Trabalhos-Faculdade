@@ -15,4 +15,10 @@
 	url = https://github.com/otbox/eng-software-automovel
 [submodule "SI401-ProgWeb"]
 	path = SI401-ProgWeb
-	url = https://github.com/otbox/SI401-ProgWeb.git
+	url = git@github.com:otbox/SI401-ProgWeb.git
+[submodule "SI400_POO2"]
+	path = SI400_POO2
+	url = git@github.com:otbox/SI400_POO2.git
+[submodule "basic-gui-with-threads"]
+	path = basic-gui-with-threads
+	url = git@github.com:NelsonModenezNeto/basic-gui-with-threads.git
