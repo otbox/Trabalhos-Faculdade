@@ -1,18 +1,15 @@
 [submodule "SI100"]
     path = SI100
-    url = https://github.com/otbox/SI100.git
-[submodule "Graph-QL"]
-	path = GraphQL
-	url = https://github.com/otbox/Graph-QL-API.git
+    url = git@github.com:otbox/SI100.git
 [submodule "Graph-QL-API"]
 	path = Graph-QL-API
-	url = https://github.com/otbox/Graph-QL-API.git
+	url = git@github.com:otbox/Graph-QL-API.git
 [submodule "SI300_POO"]
 	path = SI300_POO
-	url = https://github.com/otbox/SI300_POO
+	url = git@github.com:otbox/SI300_POO.git
 [submodule "SI304_ESII/eng-software-automovel"]
 	path = SI304_ESII/eng-software-automovel
-	url = https://github.com/otbox/eng-software-automovel
+	url = git@github.com:otbox/eng-software-automovel.git
 [submodule "SI401-ProgWeb"]
 	path = SI401-ProgWeb
 	url = git@github.com:otbox/SI401-ProgWeb.git
@@ -28,3 +25,6 @@
 [submodule "So/ProjetoFinal/trabalho-final-so"]
 	path = So/ProjetoFinal/trabalho-final-so
 	url = git@github.com:otbox/trabalho-final-so.git
+[submodule "SI202/gerenciador-credenciais"]
+	path = SI202/gerenciador-credenciais
+	url = git@github.com:otbox/gerenciador-credenciais.git
