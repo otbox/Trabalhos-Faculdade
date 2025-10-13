@@ -1,0 +1,11 @@
+Passo a passo para acessar AWS e criar uma instância
+1. Acesse o AWS Academy: https://awsacademy.instructure.com
+2. Clique em "Student Login" e informe seu email e senha.
+3. Selecione a sala ACFv2BR-LTI13-95194
+4. Clique em "Módulos", localize e clique na string "Laboratório3 - Introdução ao Amazon EC2".
+5. Clique no botão "Carregar Laboratório 3 - Introdução ao Amazon EC2 em uma nova janela" e aguarde.
+5. No canto direito superior, clique em "Start Lab" e aguarde alguns minutos para o carregamento (note a string "AWS" no canto superior esquerdo. Assim que o ícone estiver verde, pode continuar).
+6. Terminado o carregamento, clique na string "AWS" no canto superior esquerdo. Isso o levará à Console AWS na web.
+7. Clique na opção EC2 (está na parte central da seção "Visitados Recentemente").
+8. Verifique se há uma instância em execução clicando em "Instâncias" ou "Instâncias (em execução)". 
+9. Aguarde explicações do professor.

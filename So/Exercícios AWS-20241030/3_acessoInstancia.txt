@@ -1,0 +1,19 @@
+1. Localize sua nova instância no Painel EC2 e selecione-a.
+
+2. Descubra o endereço IP da sua instância em execução:
+2.1 Para isso, na parte inferior da tela, localize a string "Endereço IPv4 Público" e copie-o. 
+
+3. Volte à janela que ativou o laboratório (o título é "Workbench Vocareum") e siga os passos a seguir para obtenção da chave criptográfica.
+  3.1 No canto superior direito, clique na string "AWS Details".
+  3.2 Na linha em que está escrito "SSH key", clique na opção "Download PEM" e localize esse arquivo ("labsuser.pem") no seu disco. Você o utilizará no próximo passo.
+
+4. Estabeleça uma conexão via ssh para a instância em execução. Para isso, faça o seguinte:
+   4.1 Se você estiver usando Linux localmente, mude para o diretório "Downloads" com o comando "cd Downloads" (sem aspas) e execute o comando a seguir:
+       chmod 600 labsuser.pem
+
+   4.2 Se você estiver usando Windows localmente, abra o Windows PowerShell e mude para o diretório "Downloads" com o comando "cd Downloads".
+
+   4.3 Depois, faça uma conexão via ssh para a instância em execução, com o comando a seguir, substituindo IP_CONEXAO pelo "Endereço IPv4 Público" da sua instância:
+       ssh -i labsuser.pem ec2-user@IP_CONEXAO
+
+5. Se tudo der certo, você estará na sua instância na AWS.

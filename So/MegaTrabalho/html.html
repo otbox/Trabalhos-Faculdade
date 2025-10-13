@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <style>
+        .puzzle {
+            width: 126px;
+            height: 126px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .piece {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            cursor: pointer;
+            transition: transform 0.3s ease; 
+        }
+
+        .flutuar {
+            transform: translateY(-10px);
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="puzzle">
+        <div class="piece" onclick="moverPiece(0)">1</div>
+        <div class="piece" onclick="moverPiece(1)">2</div>
+        <div class="piece" onclick="moverPiece(2)">3</div>
+        <div class="piece" onclick="moverPiece(3)">4</div>
+        <div class="piece" onclick="moverPiece(4)">5</div>
+        <div class="piece" onclick="moverPiece(5)">6</div>
+        <div class="piece" onclick="moverPiece(6)">7</div>
+        <div class="piece" onclick="moverPiece(7)">8</div>
+        <div class="piece" onclick="moverPiece(8)"></div>
+    </div>
+
+    <script>
+        let pieces = document.getElementsByClassName("piece");
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let elements = [
+                { number: 1, use: false },
+                { number: 2, use: false },
+                { number: 3, use: false },
+                { number: 4, use: false },
+                { number: 5, use: false },
+                { number: 6, use: false },
+                { number: 7, use: false },
+                { number: 8, use: false },
+            ];
+
+            let indice = 0;
+            for (let i = 0; i < 8; i++) {
+                do {
+                    indice = Math.floor(Math.random() * 8);
+                } while (elements[indice].use);
+
+                pieces[i].innerHTML = elements[indice].number;
+                elements[indice].use = true;
+            }
+        });
+
+        function verificaGanhou() {
+            let ganhou = true;
+
+            for (let i = 0; i < pieces.length - 1; i++) {
+                if (pieces[i].innerHTML != i + 1) {
+                    ganhou = false;
+                    break;
+                }
+            }
+
+            if (ganhou) {
+                alert("Você ganhou :)");
+            }
+        }
+
+        function moverPiece(id) {
+            let emptyPieceIndex = null;
+
+            if (id != 6 && id != 3 && id > 0 && pieces[id - 1].innerHTML == "") {
+                emptyPieceIndex = id - 1;
+            }
+            if (id >= 3 && pieces[id - 3].innerHTML == "") {
+                emptyPieceIndex = id - 3;
+            }
+            if (id % 3 < 2 && pieces[id + 1].innerHTML == "") {
+                emptyPieceIndex = id + 1;
+            }
+            if (id + 3 < pieces.length && pieces[id + 3].innerHTML == "") {
+                emptyPieceIndex = id + 3;
+            }
+
+            if (emptyPieceIndex !== null) {
+                animateMove(pieces[id], emptyPieceIndex);
+            }
+
+            verificaGanhou();
+        }
+
+        function animateMove(pieceToMove, emptyIndex) {
+            pieceToMove.classList.add("flutuar");
+
+            setTimeout(() => {
+                pieces[emptyIndex].innerHTML = pieceToMove.innerHTML;
+                pieceToMove.innerHTML = "";
+                pieceToMove.classList.remove("flutuar");
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

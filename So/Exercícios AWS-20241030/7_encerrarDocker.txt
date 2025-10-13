@@ -1,0 +1,7 @@
+1. Verifique se o seu contêiner no docker está em execução com o comando a seguir.
+   docker ps
+
+2. Para parar o seu contêiner, use o comando a seguir, substituindo <HASH> pelo hash do seu contêiner.
+   docker stop <HASH>
+
+3. Repita o passo 1 para verificar se o contêiner ainda está em execução.

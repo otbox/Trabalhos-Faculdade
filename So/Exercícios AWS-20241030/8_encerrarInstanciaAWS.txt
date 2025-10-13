@@ -1,0 +1,6 @@
+No Painel EC2 faça:
+1. Selecione a instância que você criou.
+2. Clique em "Estado da instância" no canto superior direito e selecione "Interromper instância".
+3. Saia da console AWS, clicando no seu login no canto superior direito. Depois, clique em "Sair".
+4. Na página do AWS Academy "Workbench Vocareum", clique em "End Lab" no canto superior direito.
+5. Verifique se o ícone da AWS no canto superior esquerdo ficou vermelho.

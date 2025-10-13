@@ -1,0 +1,36 @@
+Aula 1 - Apresentação da disciplina e Conceitos Iniciais
+- Introdução aos Sistemas Operacionais Arquivo
+
+Aula 2 - Processos, threads e conceitos de escalonamento
+- Processos e Threads Arquivo - D
+- Demonstração dos algoritmos de escalonamento Arquivo
+
+Aula 3 - Concorrência, comunicação interprocessos e técnicas de sincronização
+Comunicação Interprocessos e Sincronização Arquivo - A
+Problemas Clássicos de Sincronização - B
+
+Aulas 4 e 5 - Laboratório de Sistemas Operacionais
+- LaboratorioSO.zip
+- LaboratorioSO.pdf
+
+Aula 6 - Deadlocks: detecção e prevenção
+- Técnicas de detecção e prevenção de deadlocks Arquivo
+
+Aula 7 - Lista de exercícios para revisão e preparação para prova.
+
+Aula 9 - Gerenciamento de Memória Principal
+- Gerenciamento de memória Arquivo
+
+Aula 10 - Memória virtual: paginação e segmentação
+- Memória virtual: paginação e segmentação Arquivo
+
+Aula 11 - Gerenciamento de sistemas de Entrada e Saída e Sistemas de Arquivos
+- Gerenciamento de E/S e Sistemas de Arquivos
+- Demonstração dos algoritmos de escalonamento de braço do disco
+
+Aula 12 - Virtualização e Contêineres
+- Virtualização e Contêineres
+
+Aula 13 - Segurança em Sistemas Operacionais
+- Segurança em sistemas operacionais Arquivo
+

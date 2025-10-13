@@ -1,0 +1,17 @@
+1. Atualize a sua instância com o comando a seguir:
+   sudo yum -y update
+
+2. Instale o docker com o comando a seguir:
+   sudo dnf install -y docker
+
+3. Habilite o docker de forma permanente com o comando a seguir:
+   sudo systemctl enable docker
+
+4. Agora instancie o serviço doker com o comando a seguir:
+   sudo service docker start
+
+5. Adicione seu usuário para executar comandos docker sem as permissões de administrador com o comando a seguir:
+   sudo usermod -a -G docker ec2-user
+
+6. Saia (com o comando "exit") e acesse a instância novamente para que as permissões fiquem validas. Depois verifique se o docker está funcionando com o comando a seguir:
+   docker info

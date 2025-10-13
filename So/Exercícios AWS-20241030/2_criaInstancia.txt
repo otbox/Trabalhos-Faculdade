@@ -1,0 +1,16 @@
+Na AWS, clique no painel EC2 no canto superior esquerdo e faça o seguinte:
+1. Clique em "Executar Instâncias" (botão laranja, no centro da seção "Executar instância").
+2. Defina um nome para a sua instância. Por exemplo: "meu servidor linux" (sem aspas).
+3. Selecione um tipo de instância na seção "Imagens de aplicação e de sistema operacional". Por exemplo: Amazon Linux.
+4. Defina a arquitetura da máquina. Por exemplo 64 bits (x86).
+5. Defina o tipo de instância. Por exemplo, t2.micro.
+6. Para o Nome do par de chaves: obrigatório, selecione vockey. 
+7. Ao lado de Configurações de rede, selecione "Editar".
+8. Na opção "VPC - obrigatório", selecione a opção que termina com "(Lab VPC)".
+9. Na opção "Firewall (grupos de segurança)", selecione "Criar grupo de segurança" e configure o seguinte:
+   9.1 Nome do grupo de segurança: "Web Server security group" (sem aspas)
+   9.2 Descrição: "Security group for my web server"
+10. Verifique as demais características da instância e mantenha tudo como está.
+11. Verifique o resumo da solicitação à esquerda e clique em "Executar instância".
+12. Depois da execução com êxito, clique em "Visualizar todas as instâncias" ou em "Instâncias" no canto esquerdo inferior da tela.
+13. Aguarde explicações do professor.

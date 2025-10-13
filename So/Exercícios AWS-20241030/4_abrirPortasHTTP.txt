@@ -1,0 +1,10 @@
+No Painel EC2 faça:
+1. Clique em "Instâncias em Execução".
+2. Selecione o ID de instância específico para a sua instância.
+3. Descendo um pouco a tela, clique em "Segurança"
+4. Clique em um grupo de segurança específico.
+5. Descendo um pouco a tela, clique em "Editar regras de entrada" no canto lateral direito.
+   5.1 Adicione uma nova regra, clicando em "Adicionar regra".
+   5.2 Selecione o tipo HTTPS e, ao lado da caixa de seleção "443", selecione a opção "Qualquer local-ipv4".
+   5.3 Repita os passos 5.1 e 5.2 anteriores, dessa vez escolhendo o HTTP.
+6. Ao final, clique em "Salvar regras".

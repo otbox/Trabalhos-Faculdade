@@ -1,0 +1,27 @@
+1. Usando o navegador, localmente, tente acessar o site da sua instância na porta 8080. A página não será carregada. Isso deve dar um erro.
+   http://<IP_INSTANCIA>
+
+2. Na instância, usando o docker, execute uma imagem do nginx (servidor web) com o comando a seguir:
+  docker run -d -p 80:80 nginx
+
+3. Verifique se o contêiner com o nginx está em execução.
+   docker ps
+
+4. Se estiver em execução, repita o passo 1 e veja se funcionou.
+
+5. Na instância, entre na imagem em execução substituindo a string "<HASH>" pelo hash da sua instância (obtido com o comando 3).
+   docker exec -it <HASH> bash
+
+6. Dentro do contêiner, atualize-o e instale o editor de texto nano com os comandos a seguir:
+   apt-get update
+   apt-get install -y nano
+
+7. Abra o arquivo "index.html" que está no diretório "/usr/share/nginx/html" com o comando a seguir.
+   nano usr/share/nginx/html/index.html
+
+8. Desça com o cursor até a linha 12 e altere a linha "Welcome to nginx!" para "Bem-vindo ao nginx". 
+   8.1 Depois pressione ctrl+x. Confirme a gravação com "y" e pressione enter.
+
+9. Repita o passo 1, e logo em seguida, peça para o browser atualizar a página (com F5). Veja se houve alterações.
+
+10. Saia do contêiner com o comando "exit" (sem aspas).
