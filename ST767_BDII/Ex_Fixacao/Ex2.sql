@@ -1,3 +1,6 @@
+    ,
+    
+    
 create DATABASE BancoDados
 go
 use BancoDados
