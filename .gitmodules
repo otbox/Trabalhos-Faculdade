@@ -28,3 +28,6 @@
 [submodule "SI202/gerenciador-credenciais"]
 	path = SI202/gerenciador-credenciais
 	url = git@github.com:otbox/gerenciador-credenciais.git
+[submodule "IHC/IHC-ATAPIL"]
+	path = IHC/IHC-ATAPIL
+	url = git@github.com:MiguelMagior/IHC-ATAPIL.git
