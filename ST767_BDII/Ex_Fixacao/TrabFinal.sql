@@ -459,7 +459,7 @@ END;
 GO
 
 -- Trigger: Atualizar valor da venda conforme projeto inserido
-CREATE TRIGGER trigger_atualizar_valor_venda_projeto_ao_inserir
+CREATE TRIGGER trigger_atualizar_valor_venda_projeto_ao_inserir 
 ON Projeto
 AFTER INSERT
 AS

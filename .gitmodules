@@ -31,3 +31,6 @@
 [submodule "IHC/IHC-ATAPIL"]
 	path = IHC/IHC-ATAPIL
 	url = git@github.com:MiguelMagior/IHC-ATAPIL.git
+[submodule "ICLLMs"]
+	path = ICLLMs
+	url = git@github.com:otbox/ICLLMs.git
