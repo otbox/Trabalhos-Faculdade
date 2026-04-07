@@ -3,8 +3,8 @@
 
 #include <GL/glut.h>
 #include <memory>
-using std::unique_ptr;
 using std::make_unique;
+using std::unique_ptr;
 
 class Polygon
 {
@@ -17,7 +17,8 @@ protected:
 public:
     Polygon(float px, float py, float pz,
             float psx, float psy, float psz,
-            float pr, float pg, float pb);
+            float pr, float pg, float pb,
+            float xg, float yg, float zg);
 
     virtual ~Polygon();
 
@@ -50,7 +51,7 @@ class Cube : public Polygon
 public:
     using Polygon::Polygon;
     void draw() const override;
-    
+
     // ~Cube();
 };
 
@@ -60,12 +61,12 @@ private:
     float x = 0.0f, y = 0.0f, z = 0.0f;
     float sx = 1.0f, sy = 1.0f, sz = 1.0f;
     float r = 1.0f, g = 1.0f, b = 1.0f;
-
+    float xg = 0.0f, yg = 0.0f, zg = 0.0f;
 public:
     PolygonBuilder &at(float px, float py, float pz);
     PolygonBuilder &scaled(float psx = 1, float psy = 1, float psz = 1);
     PolygonBuilder &colored(float pr, float pg, float pb);
-
+    PolygonBuilder &rotated(float pxg = 0.0f, float pyg = 0.0f, float pzg = 0.0f);
 
     // template <typename T>
     // T build() const
@@ -73,8 +74,9 @@ public:
     //     return T(x, y, z, sx, sy, sz, r, g, b);
     // }
     template <typename T>
-    unique_ptr<T> build() const {
-        return make_unique<T>(x, y, z, sx, sy, sz, r, g, b);
+    unique_ptr<T> build() const
+    {
+        return make_unique<T>(x, y, z, sx, sy, sz, r, g, b, xg, yg, zg);
     }
 };
 
