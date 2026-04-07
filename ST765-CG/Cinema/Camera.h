@@ -14,14 +14,21 @@ public:
 
     void reshape(int w, int h)
     {
+        if (h == 0)
+            h = 1;              // Evita divisão por zero
+        glViewport(0, 0, w, h); // Garante que o viewport cubra a janela toda
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(65.0, (GLfloat)w / (GLfloat)h, 1.0, 40.0);
+        // Aumentei de 40.0 para 1000.0
+        gluPerspective(65.0, (GLfloat)w / (GLfloat)h, 0.1, 2000.0);
+
+        glMatrixMode(GL_MODELVIEW);
     }
 
     void placeCamera()
     {
-        float radYaw   = yaw   * 3.14159265f / 180.0f;
+        float radYaw = yaw * 3.14159265f / 180.0f;
         float radPitch = pitch * 3.14159265f / 180.0f;
 
         float fx = cosf(radYaw) * cosf(radPitch);
@@ -33,35 +40,42 @@ public:
         float cz = z + fz;
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        gluLookAt(x, y, z,          // posição da câmera
-                  cx, cy, cz, // para onde olha
-                  0.0, 1.0, 0.0);            // vetor up (cima)
+        gluLookAt(x, y, z,        // posição da câmera
+                  cx, cy, cz,     // para onde olha
+                  0.0, 1.0, 0.0); // vetor up (cima)
     }
 
-    void moveForward(float dist) {
+    void moveForward(float dist)
+    {
         float radYaw = yaw * 3.14159265f / 180.0f;
         x += cosf(radYaw) * dist;
         z += sinf(radYaw) * dist;
     }
 
-    void moveRight(float dist) {
+    void moveRight(float dist)
+    {
         float radYaw = yaw * 3.14159265f / 180.0f;
-        x += cosf(radYaw + 3.14159265f/2.0f) * dist;
-        z += sinf(radYaw + 3.14159265f/2.0f) * dist;
+        x += cosf(radYaw + 3.14159265f / 2.0f) * dist;
+        z += sinf(radYaw + 3.14159265f / 2.0f) * dist;
     }
 
-    void moveUp(float dist) {
+    void moveUp(float dist)
+    {
         y += dist;
     }
 
-    void rotateYaw(float deg) {
+    void rotateYaw(float deg)
+    {
         yaw += deg;
     }
 
-    void rotatePitch(float deg) {
+    void rotatePitch(float deg)
+    {
         pitch += deg;
-        if (pitch > 89.0f)  pitch = 89.0f;
-        if (pitch < -89.0f) pitch = -89.0f;
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
     }
 };
 

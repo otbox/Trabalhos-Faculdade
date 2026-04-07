@@ -1,0 +1,1 @@
+BarraLuz.o: BarraLuz.cpp

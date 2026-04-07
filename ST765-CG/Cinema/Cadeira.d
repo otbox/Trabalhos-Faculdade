@@ -1,0 +1,1 @@
+Cadeira.o: Cadeira.cpp
