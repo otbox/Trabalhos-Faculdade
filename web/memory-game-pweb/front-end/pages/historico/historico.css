@@ -1,0 +1,36 @@
+@import "../../globals/global.css";
+
+a {
+  font-size: 20px;
+  padding: 2vw;
+  position: absolute;
+}
+
+body {
+  position: relative;
+}
+
+.back-arrow {
+  filter: invert(1);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  position: absolute;
+  display: flex;
+}
+
+.back-arrow:hover {
+  transform: scale(1.1);
+}
+
+
+.display {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+

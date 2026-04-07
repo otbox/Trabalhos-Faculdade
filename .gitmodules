@@ -20,7 +20,7 @@
 	path = basic-gui-with-threads
 	url = git@github.com:NelsonModenezNeto/basic-gui-with-threads.git
 [submodule "memory-game-pweb"]
-	path = memory-game-pweb
+	path = web/memory-game-pweb
 	url = git@github.com:NelsonModenezNeto/memory-game-pweb.git
 [submodule "So/ProjetoFinal/trabalho-final-so"]
 	path = So/ProjetoFinal/trabalho-final-so

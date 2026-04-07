@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuleiro</title>
+    <link rel="stylesheet" href="./tabuleiro.css">
+  </head>
+  <body>
+    <canvas id="background-canvas"></canvas>
+
+    <div class="container">
+      <div class="left-panel-container">
+        <div class="side-panel left-panel">
+
+          <a href="../home/home.html">
+            <button class="btn">
+              <span class="btn-text">
+                Tela Inicial
+              </span>
+            </button>
+          </a>
+          
+          <a href="../historico/historico.html">
+              <button class="btn">
+              <span class="btn-text">
+                Ver historico
+              </span>
+            </button>
+          </a>
+
+        </div>
+
+        <div class="side-panel left-panel">
+          <div class="cheats">
+            <div class="img-cheat-container">
+              <img class="joker-img" src="../../assets/joker.png" alt="joker">
+            </div>
+            <button class="btn btn-joker" id="joker-all-cards">
+              <span class="btn-text-joker">
+                Ver as cartas
+              </span>
+            </button>
+            <button class="btn btn-joker" id="joker-back-game">
+              <span class="btn-text-joker">
+                Volte ao jogo
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabuleiro">
+        <!-- js vai carregar os cards -->
+      </div>
+      <div class="side-panel right-panel">
+        <div class="info-item">
+          <span>Tempo Atual:</span>
+          <span id="current-time">00:00</span>
+        </div>
+        <div class="info-item">
+          <span>Tempo Restante:</span>
+          <span id="remaining-time">--:--</span>
+        </div>
+        <div class="info-item">
+          <span>Jogadas:</span>
+          <span id="move-count">0</span>
+        </div>
+        
+        <button class="btn btn-play-again" id="play-again-btn" style="display: none;">
+          <span class="btn-text">
+            Deseja jogar novamente?
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+    <script src="../background.js"></script>
+  </body>
+</html>
