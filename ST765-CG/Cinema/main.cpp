@@ -22,45 +22,40 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     cam.placeCamera();
 
-    /* rotacao da cena*/
     glPushMatrix();
     glRotatef((GLfloat)rot, 0.0, 1.0, 0.0);
 
     vector<unique_ptr<Polygon>> polygons;
-    PolygonBuilder builder;
-    polygons.push_back(
-        builder
-            .at(0, 0, 0)
-            .colored(0, 0, 0)
-            .scaled(20, 5)
-            .build<Cube>());
-    polygons.push_back(
-        builder
-            .at(0, 0.25, 0.3)
-            .colored(255, 255, 255)
-            .scaled(4, 3)
-            .build<Cube>());
-    polygons.push_back(
-        builder
-            .at(10, 0, 1)
-            .colored(0, 0, 0)
-            .scaled(1, 5, 5)
-            .build<Cube>());
-    polygons.push_back(
-        builder
-            .at(-10, 0, 1)
-            .colored(0, 0, 0)
-            .scaled(1, 5, 5)
-            .build<Cube>());
 
+    // Cada objeto usa seu proprio PolygonBuilder independente
+    // para evitar acumulo de estado entre chamadas
+
+    // Chao
     polygons.push_back(
-        builder.at(0,0,10).colored(255,0,0).build<Cadeira>());
+        PolygonBuilder().at(0, 0, 0).colored(0, 0, 0).scaled(20, 5, 20).build<Cube>());
+
+    // Tela
+    polygons.push_back(
+        PolygonBuilder().at(0, 0.25, 0.3).colored(1, 1, 1).scaled(4, 3, 0.1f).build<Cube>());
+
+    // Parede direita
+    polygons.push_back(
+        PolygonBuilder().at(10, 0, 1).colored(0, 0, 0).scaled(1, 5, 5).build<Cube>());
+
+    // Parede esquerda
+    polygons.push_back(
+        PolygonBuilder().at(-10, 0, 1).colored(0, 0, 0).scaled(1, 5, 5).build<Cube>());
+
+    // Cadeira — posicionada acima do chao (y=0.5 para ficar sobre o piso)
+    polygons.push_back(
+        PolygonBuilder().at(0, 0.5f, 5).colored(0.6f, 0.1f, 0.1f).scaled(1.5f, 1.5f, 1.5f).build<Cadeira>());
 
     for (const auto &obj : polygons)
     {
         obj->draw();
     }
 
+    glPopMatrix();
     glutSwapBuffers();
 }
 
@@ -73,26 +68,14 @@ void keyboard(unsigned char key, int, int)
 {
     switch (key)
     {
-    case 'w':
-        cam.moveForward(0.5f);
-        break;
-    case 's':
-        cam.moveForward(-0.5f);
-        break;
-    case 'a':
-        cam.moveRight(-0.5f);
-        break;
-    case 'd':
-        cam.moveRight(0.5f);
-        break;
-    case 'q':
-        cam.rotateYaw(-5.0f);
-        break;
-    case 'e':
-        cam.rotateYaw(5.0f);
-        break;
+    case 'w': cam.moveForward(0.5f);  break;
+    case 's': cam.moveForward(-0.5f); break;
+    case 'a': cam.moveRight(-0.5f);   break;
+    case 'd': cam.moveRight(0.5f);    break;
+    case 'q': cam.rotateYaw(-5.0f);   break;
+    case 'e': cam.rotateYaw(5.0f);    break;
     }
-    glutPostRedisplay(); // redesenha com a nova câmera [web:190]
+    glutPostRedisplay();
 }
 
 int main(int argc, char **argv)
@@ -104,7 +87,6 @@ int main(int argc, char **argv)
     glutCreateWindow(argv[0]);
     init();
     glutDisplayFunc(display);
-
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     glutMainLoop();

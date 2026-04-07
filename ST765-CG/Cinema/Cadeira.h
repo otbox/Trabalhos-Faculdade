@@ -4,54 +4,90 @@
 #include <vector>
 #include <memory>
 #include "Polygon.h"
+
 class Cadeira : public Polygon
 {
 public:
     std::vector<std::unique_ptr<Polygon>> partes;
 
-    Cadeira(float px, float py, float pz, float psx, float psy, float psz, float pr, float pg, float pb) : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb)
+    Cadeira(float px, float py, float pz,
+            float psx, float psy, float psz,
+            float pr, float pg, float pb)
+        : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb)
     {
-        PolygonBuilder builder;
-        // 1. Assento (Mais grosso e fofinho)
+        // Todas as posicoes sao locais (relativas ao centro da cadeira).
+        // O draw() aplica glTranslatef + glScalef sobre tudo junto.
+
+        // 1. Assento
         partes.push_back(
-            builder.at(0.0f, 0.0f, 0.0f)
+            PolygonBuilder()
+                .at(0.0f, 0.0f, 0.0f)
                 .colored(pr, pg, pb)
-                .scaled(1.0f, 0.4f, 1.0f) // Subiu de 0.2 para 0.4 no Y
+                .scaled(0.9f, 0.15f, 0.8f)
                 .build<Cube>());
 
-        // 2. Encosto (Mais espesso)
+        // 2. Encosto
         partes.push_back(
-            builder.at(0.0f, 0.6f, -0.45f)
+            PolygonBuilder()
+                .at(0.0f, 0.5f, -0.38f)
                 .colored(pr, pg, pb)
-                .scaled(1.0f, 1.2f, 0.4f) // Subiu de 0.2 para 0.4 no Z
+                .scaled(0.9f, 0.85f, 0.12f)
                 .build<Cube>());
 
-        // 3. Braço Esquerdo (Mais largo para apoiar o balde de pipoca)
+        // 3. Braco esquerdo
         partes.push_back(
-            builder.at(-0.65f, 0.35f, 0.0f) // Ajustado X para não entrar no assento
-                .colored(0.15f, 0.15f, 0.15f)
-                .scaled(0.3f, 0.2f, 0.9f) // Mais largo no X e alto no Y
+            PolygonBuilder()
+                .at(-0.48f, 0.1f, 0.05f)
+                .colored(0.15f, 0.10f, 0.08f)
+                .scaled(0.08f, 0.1f, 0.75f)
                 .build<Cube>());
 
-        // 4. Braço Direito
+        // 4. Braco direito
         partes.push_back(
-            builder.at(0.65f, 0.35f, 0.0f)
-                .colored(0.15f, 0.15f, 0.15f)
-                .scaled(0.3f, 0.2f, 0.9f)
+            PolygonBuilder()
+                .at(0.48f, 0.1f, 0.05f)
+                .colored(0.15f, 0.10f, 0.08f)
+                .scaled(0.08f, 0.1f, 0.75f)
                 .build<Cube>());
 
-        // 5. Suporte Central (Pé mais robusto para aguentar o peso)
+        // 5. Perna dianteira esquerda
         partes.push_back(
-            builder.at(0.0f, -0.5f, 0.0f)
-                .colored(0.05f, 0.05f, 0.05f)
-                .scaled(0.4f, 0.8f, 0.4f) // Aumentado para 0.4 no X e Z
+            PolygonBuilder()
+                .at(-0.35f, -0.32f, 0.32f)
+                .colored(0.1f, 0.1f, 0.1f)
+                .scaled(0.07f, 0.5f, 0.07f)
+                .build<Cube>());
+
+        // 6. Perna dianteira direita
+        partes.push_back(
+            PolygonBuilder()
+                .at(0.35f, -0.32f, 0.32f)
+                .colored(0.1f, 0.1f, 0.1f)
+                .scaled(0.07f, 0.5f, 0.07f)
+                .build<Cube>());
+
+        // 7. Perna traseira esquerda
+        partes.push_back(
+            PolygonBuilder()
+                .at(-0.35f, -0.32f, -0.32f)
+                .colored(0.1f, 0.1f, 0.1f)
+                .scaled(0.07f, 0.5f, 0.07f)
+                .build<Cube>());
+
+        // 8. Perna traseira direita
+        partes.push_back(
+            PolygonBuilder()
+                .at(0.35f, -0.32f, -0.32f)
+                .colored(0.1f, 0.1f, 0.1f)
+                .scaled(0.07f, 0.5f, 0.07f)
                 .build<Cube>());
     }
+
     void draw() const override
     {
         glPushMatrix();
         glTranslatef(x, y, z);
-        glScaled(sx, sy, sz);
+        glScalef(sx, sy, sz);
         for (const auto &obj : partes)
         {
             obj->draw();
