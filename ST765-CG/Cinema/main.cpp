@@ -3,13 +3,13 @@
 #include "Polygon.h"
 #include "Camera.h"
 #include "iostream"
-#include "Cadeira.h"
+#include "Sala.h"
 #include <vector>
 #include <memory>
 using namespace std;
 
 static int rot = 0;
-Camera cam(0.0f, 0.0f, 15.0f, 270.0f, 0.0f);
+Camera cam(0.0f, 2.0f, 15.0f, 270.0f, 0.0f);
 
 void init(void)
 {
@@ -27,33 +27,18 @@ void display(void)
 
     vector<unique_ptr<Polygon>> polygons;
 
-    // Cada objeto usa seu proprio PolygonBuilder independente
-    // para evitar acumulo de estado entre chamadas
+    auto sala = PolygonBuilder().at(0, 0.5f, 5).colored(0.25f, 0.25f, 0.25f).scaled(1.5f, 1.5f, 1.5f).build<Sala>();
+    sala->draw();
 
-    // Chao
-    polygons.push_back(
-        PolygonBuilder().at(0, 0, 0).colored(0, 0, 0).scaled(20, 5, 20).build<Cube>());
+    // polygons.push_back(
 
-    // Tela
-    polygons.push_back(
-        PolygonBuilder().at(0, 0.25, 0.3).colored(1, 1, 1).scaled(4, 3, 0.1f).build<Cube>());
+    // // Cadeira — posicionada acima do chao (y=0.5 para ficar sobre o piso)
 
-    // Parede direita
-    polygons.push_back(
-        PolygonBuilder().at(10, 0, 1).colored(0, 0, 0).scaled(1, 5, 5).build<Cube>());
 
-    // Parede esquerda
-    polygons.push_back(
-        PolygonBuilder().at(-10, 0, 1).colored(0, 0, 0).scaled(1, 5, 5).build<Cube>());
-
-    // Cadeira — posicionada acima do chao (y=0.5 para ficar sobre o piso)
-    polygons.push_back(
-        PolygonBuilder().at(0, 0.5f, 5).colored(0.6f, 0.1f, 0.1f).scaled(1.5f, 1.5f, 1.5f).build<Cadeira>());
-
-    for (const auto &obj : polygons)
-    {
-        obj->draw();
-    }
+    // for (const auto &obj : polygons)
+    // {
+    //     obj->draw();
+    // }
 
     glPopMatrix();
     glutSwapBuffers();

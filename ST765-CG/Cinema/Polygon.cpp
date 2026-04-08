@@ -56,10 +56,10 @@ void Cube::draw() const
     glColor3f(r, g, b);
     glPushMatrix();
     glTranslatef(x, y, z);
-    glScalef(sx, sy, sz);
     glRotatef(xg, 1.0f, 0.0f, 0.0f);
     glRotatef(yg, 0.0f, 1.0f, 0.0f);
     glRotatef(zg, 0.0f, 0.0f, 1.0f);
+    glScalef(sx, sy, sz);
     glutSolidCube(1.0);
     glPopMatrix();
 }

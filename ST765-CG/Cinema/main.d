@@ -1,4 +1,4 @@
-main.o: main.cpp Polygon.h Camera.h Cadeira.h
+main.o: main.cpp Polygon.h Camera.h Sala.h
 Polygon.h:
 Camera.h:
-Cadeira.h:
+Sala.h:
