@@ -21,9 +21,6 @@ Sala::Sala(float px, float py, float pz,
     partes.push_back(
         PolygonBuilder().at(-9.75f, 0.5f, 7.75).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(2, 2.5, 1).build<Porta>());
 
-    partes.push_back(
-        PolygonBuilder().at(-9.75f, 0.5f, 7.75).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(2, 2.5, 1).build<CaixaSom>());
-
     // 2. Teto
     partes.push_back(
         PolygonBuilder().at(0, 2.5f, 0).colored(pr + 0.1f, pg + 0.1f, pb + 0.1f).scaled(20.0f, esp, 20.0f).build<Cube>());
