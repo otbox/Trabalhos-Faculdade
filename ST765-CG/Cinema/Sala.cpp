@@ -48,16 +48,16 @@ Sala::Sala(float px, float py, float pz,
     // Faixas decorativas
     // Diagonais
     partes.push_back(
-        PolygonBuilder().at(9.8f, 1.0f, -0.8f).colored(1.0f, 0.0f, 0.0f).rotated(-11, 0, 0).scaled(0.1f, 0.25f, 13.0f).build<Cube>());
+        PolygonBuilder().at(9.8f, 1.0f, -0.8f).colored(0.6f, 0.1f, 0.1f).rotated(-11, 0, 0).scaled(0.1f, 0.25f, 13.0f).build<Cube>());
     partes.push_back(
-        PolygonBuilder().at(-9.8f, 1.0f, -0.8f).colored(1.0f, 0.0f, 0.0f).rotated(-11, 0, 0).scaled(0.1f, 0.25f, 13.0f).build<Cube>());
+        PolygonBuilder().at(-9.8f, 1.0f, -0.8f).colored(0.6f, 0.1f, 0.1f).rotated(-11, 0, 0).scaled(0.1f, 0.25f, 13.0f).build<Cube>());
 
     // Verticais
     // Frente
     partes.push_back(
-        PolygonBuilder().at(9.8f, 1.25f, -7.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 3.0f, 0.5f).build<Cube>());
+        PolygonBuilder().at(9.8f, 1.25f, -7.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 3.0f, 0.5f).build<Cube>());
     partes.push_back(
-        PolygonBuilder().at(-9.8f, 1.25f, -7.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 3.0f, 0.5f).build<Cube>());
+        PolygonBuilder().at(-9.8f, 1.25f, -7.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 3.0f, 0.5f).build<Cube>());
         // SOM
     partes.push_back(
         PolygonBuilder().at(-9.8f, 0.8f, -5.5f).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(0.5f, 0.5f, 0.5f).build<CaixaSom>());
@@ -66,9 +66,9 @@ Sala::Sala(float px, float py, float pz,
 
     // Meio
     partes.push_back(
-        PolygonBuilder().at(9.8f, 1.4f, -4.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 2.0f, 0.5f).build<Cube>());
+        PolygonBuilder().at(9.8f, 1.4f, -4.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 2.0f, 0.5f).build<Cube>());
     partes.push_back(
-        PolygonBuilder().at(-9.8f, 1.4f, -4.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 2.0f, 0.5f).build<Cube>());
+        PolygonBuilder().at(-9.8f, 1.4f, -4.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 2.0f, 0.5f).build<Cube>());
         // SOM
     partes.push_back(
         PolygonBuilder().at(-9.8f, 1.1f, -3.0f).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(0.5f, 0.5f, 0.5f).build<CaixaSom>());
@@ -77,9 +77,9 @@ Sala::Sala(float px, float py, float pz,
 
     // Tras
     partes.push_back(
-        PolygonBuilder().at(9.8f, 1.65f, -1.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 1.5f, 0.5f).build<Cube>());
+        PolygonBuilder().at(9.8f, 1.65f, -1.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 1.5f, 0.5f).build<Cube>());
     partes.push_back(
-        PolygonBuilder().at(-9.8f, 1.65f, -1.0f).colored(1.0f, 0.0f, 0.0f).scaled(0.1f, 1.5f, 0.5f).build<Cube>());
+        PolygonBuilder().at(-9.8f, 1.65f, -1.0f).colored(0.6f, 0.1f, 0.1f).scaled(0.1f, 1.5f, 0.5f).build<Cube>());
     // SOM
     partes.push_back(
         PolygonBuilder().at(-9.8f, 1.5f, -0.5f).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(0.5f, 0.5f, 0.5f).build<CaixaSom>());
@@ -147,12 +147,12 @@ Row::Row(float px, float py, float pz,
             .scaled(sx, sy, sz)
             .build<Cube>());
 
-    // Linha laranja na borda esquerda do cubo (adicionada a partes, não ->draw())
+
     partes.push_back(
         PolygonBuilder()
             .at(0.0 / 2.0f, -1.0f + sy / 2.0f, sz / 2.0f)
             .colored(1.0f, 0.5f, 0.0f)
-            .scaled(sx, 0.04f, 0.04f) // fina em X e Y, comprimento em Z
+            .scaled(sx, 0.04f, 0.04f) 
             .build<Cube>());
 
     sx -= 4.0f;
@@ -198,26 +198,31 @@ Porta::Porta(float px, float py, float pz,
 
     // 1. Guarnição Topo
     partes.push_back(builder.at(0.0f, 0.46f, 0.0f)
-                         .colored(0.25f, 0.15f, 0.08f)
+                         .colored(0.6f, 0.1f, 0.1f)
                          .scaled(1.16f, 0.08f, 0.15f)
                          .build<Cube>());
 
     // 2. Guarnição Lateral Esquerda
     partes.push_back(builder.at(-0.54f, 0.0f, 0.0f)
-                         .colored(0.25f, 0.15f, 0.08f)
+                         .colored(0.6f, 0.1f, 0.1f)
                          .scaled(0.08f, 1.0f, 0.15f)
                          .build<Cube>());
 
     // 3. Guarnição Lateral Direita
     partes.push_back(builder.at(0.54f, 0.0f, 0.0f)
-                         .colored(0.25f, 0.15f, 0.08f)
+                         .colored(0.6f, 0.1f, 0.1f)
                          .scaled(0.08f, 1.0f, 0.15f)
                          .build<Cube>());
 
     // 4. Folha da Porta
-    partes.push_back(builder.at(0.0f, 0.0f, 0.0f)
-                         .colored(0.45f, 0.25f, 0.10f)
-                         .scaled(1.0f, 0.92f, 0.05f)
+    partes.push_back(builder.at(0.29f, 0.0f, 0.0f)
+                         .colored(0.35f, 0.35f, 0.35f)
+                         .scaled(0.475f, 0.92f, 0.05f)
+                         .build<Cube>());
+                         
+    partes.push_back(builder.at(-0.29f, 0.0f, 0.0f)
+                         .colored(0.35f, 0.35f, 0.35f)
+                         .scaled(0.475f, 0.92f, 0.05f)
                          .build<Cube>());
 
     // 5. Maçaneta Simples
