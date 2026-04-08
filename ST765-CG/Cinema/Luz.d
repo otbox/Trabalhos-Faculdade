@@ -1,1 +1,0 @@
-Luz.o: Luz.cpp

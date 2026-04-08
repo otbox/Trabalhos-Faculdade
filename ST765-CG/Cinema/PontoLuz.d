@@ -1,1 +1,0 @@
-PontoLuz.o: PontoLuz.cpp
