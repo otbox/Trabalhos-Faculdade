@@ -4,8 +4,8 @@
 Cadeira::Cadeira(float px, float py, float pz,
                  float psx, float psy, float psz,
                  float pr, float pg, float pb,
-                 float xg, float yg, float zg)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg)
+                 float xg, float yg, float zg, GLuint texture)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, texture)
 {
 
     // Cores e Materiais da Imagem
