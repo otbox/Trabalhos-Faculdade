@@ -1,23 +1,25 @@
 #include "Cadeira.h"
 #include <GL/glut.h>
+#include "ImageLoader.h"
 
 Cadeira::Cadeira(float px, float py, float pz,
                  float psx, float psy, float psz,
                  float pr, float pg, float pb,
-                 float xg, float yg, float zg, GLuint texture)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, texture)
+                 float xg, float yg, float zg, GLuint textureID)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, textureID) 
 {
 
     // Cores e Materiais da Imagem
     float cor_assento_r = pr, cor_assento_g = pg, cor_assento_b = pb;
     float cor_base_r = 0.1f, cor_base_g = 0.1f, cor_base_b = 0.1f;
-
+    // textureID = ImageLoader::loadTexture("./assets/chairleather.sgi");
     // Assento 
     partes.push_back(
         PolygonBuilder()
             .at(0.0f, -0.1f, -0.04f) 
             .colored(cor_assento_r, cor_assento_g, cor_assento_b)
             .scaled(0.9f, 0.12f, 0.9f) 
+            // .textured(textureID)
             .build<Cube>());
 
     // Carcaça Preta do Encosto (Forma as bordas e a parte de trás)
@@ -44,6 +46,7 @@ Cadeira::Cadeira(float px, float py, float pz,
             .colored(cor_assento_r, cor_assento_g, cor_assento_b)
             .scaled(0.9f, 0.9f, 0.12f)   // Alto e profundo
             .rotated(-25.0f, 0.0f, 0.0f) // Maior e mais espesso que a almofada (0.9f x 0.9f x 0.12f)
+            // .textured(textureID)
             .build<Cube>());
 
     // Braco esquerdo (Plástico Preto com Porta-Copos)

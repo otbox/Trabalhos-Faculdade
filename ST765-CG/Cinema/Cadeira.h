@@ -14,7 +14,7 @@ public:
     Cadeira(float px, float py, float pz,
             float psx, float psy, float psz,
             float pr, float pg, float pb,
-        float xg, float yg, float zg, GLuint texture);
+        float xg, float yg, float zg, GLuint textureID = 0);
 
 
     void draw() const override;

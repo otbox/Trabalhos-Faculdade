@@ -1,9 +1,9 @@
 #include "ImageLoader.h"
-
 #include <stdexcept>
 #include <cstring>
 #include <algorithm>
 #include <iostream>
+#include <limits>
 
 // ---------------------------------------------------------------------------
 // Construtor
@@ -39,7 +39,7 @@ unsigned short ImageLoader::swapShort(unsigned short v)
     return static_cast<unsigned short>(((v & 0x00FF) << 8) | ((v & 0xFF00) >> 8));
 }
 
-unsigned long ImageLoader::swapLong(unsigned long v)
+uint32_t ImageLoader::swapLong(uint32_t v)
 {
     return ((v & 0x000000FFUL) << 24)
          | ((v & 0x0000FF00UL) <<  8)
@@ -48,29 +48,35 @@ unsigned long ImageLoader::swapLong(unsigned long v)
 }
 
 // ---------------------------------------------------------------------------
-// readRow — descomprime ou lê verbatim uma linha de um canal
+// readRow
 // ---------------------------------------------------------------------------
 
 void ImageLoader::readRow(FILE *f,
                           unsigned char *buf,
                           int y, int z,
                           unsigned short type,
-                          const std::vector<unsigned long> &rowStart,
-                          const std::vector<unsigned long> &rowSize,
-                          std::vector<unsigned char>       &tmpBuf) const
+                          const std::vector<uint32_t> &rowStart,
+                          const std::vector<uint32_t> &rowSize,
+                          std::vector<unsigned char>  &tmpBuf) const
 {
     const bool rle = ((type & 0xFF00) == 0x0100);
 
     if (rle)
     {
         const int idx = y + z * m_height;
+
+        if (rowSize[idx] > tmpBuf.size())
+            throw std::runtime_error("RLE rowSize excede tmpBuf na linha " + std::to_string(y));
+
         fseek(f, static_cast<long>(rowStart[idx]), SEEK_SET);
         fread(tmpBuf.data(), 1, rowSize[idx], f);
 
-        const unsigned char *src = tmpBuf.data();
-        unsigned char       *dst = buf;
+        const unsigned char *src    = tmpBuf.data();
+        const unsigned char *srcEnd = tmpBuf.data() + rowSize[idx];
+        unsigned char       *dst    = buf;
+        unsigned char       *dstEnd = buf + m_width;
 
-        while (true)
+        while (src < srcEnd)
         {
             const unsigned char pixel = *src++;
             int count = pixel & 0x7F;
@@ -78,40 +84,39 @@ void ImageLoader::readRow(FILE *f,
 
             if (pixel & 0x80)
             {
-                // Cópia literal
+                if (dst + count > dstEnd) count = static_cast<int>(dstEnd - dst);
+                if (src + count > srcEnd) count = static_cast<int>(srcEnd - src);
                 while (count--) *dst++ = *src++;
             }
             else
             {
-                // Run-length
+                if (src >= srcEnd) break;
                 const unsigned char rep = *src++;
+                if (dst + count > dstEnd) count = static_cast<int>(dstEnd - dst);
                 while (count--) *dst++ = rep;
             }
         }
     }
     else
     {
-        // Verbatim
         const long offset = 512L
-                          + static_cast<long>(y) * m_width
-                          + static_cast<long>(z) * m_width * m_height;
+                          + static_cast<long>(z) * m_width * m_height
+                          + static_cast<long>(y) * m_width;
         fseek(f, offset, SEEK_SET);
         fread(buf, 1, static_cast<std::size_t>(m_width), f);
     }
 }
 
 // ---------------------------------------------------------------------------
-// load — lógica principal
+// load
 // ---------------------------------------------------------------------------
 
 void ImageLoader::load(const std::string &fileName)
 {
-    // --- Abrir arquivo ---------------------------------------------------
     FILE *f = fopen(fileName.c_str(), "rb");
     if (!f)
         throw std::runtime_error("ImageLoader: não foi possível abrir \"" + fileName + "\"");
 
-    // --- Ler cabeçalho ---------------------------------------------------
     SgiHeader hdr;
     if (fread(&hdr, 1, sizeof(hdr), f) < 12)
     {
@@ -129,6 +134,9 @@ void ImageLoader::load(const std::string &fileName)
         hdr.sizeZ = swapShort(hdr.sizeZ);
     }
 
+    printf("Debug ImageLoader: %s | %dx%d | Canais: %d | Swapped: %s\n",
+           fileName.c_str(), hdr.sizeX, hdr.sizeY, hdr.sizeZ, m_swapped ? "Sim" : "Não");
+
     if (hdr.imagic != IMAGIC && hdr.imagic != IMAGIC_SWAP)
     {
         fclose(f);
@@ -137,49 +145,77 @@ void ImageLoader::load(const std::string &fileName)
 
     m_width    = hdr.sizeX;
     m_height   = hdr.sizeY;
-    m_channels = hdr.sizeZ;   // 1=BW, 2=LA, 3=RGB, 4=RGBA
+    m_channels = hdr.sizeZ;
 
-    // --- Tabelas RLE (se aplicável) --------------------------------------
-    std::vector<unsigned long> rowStart, rowSize;
+    // -----------------------------------------------------------------------
+    // Tabelas RLE
+    // -----------------------------------------------------------------------
+    std::vector<uint32_t> rowStart, rowSize;  // ← CORREÇÃO: era unsigned long
     const bool rle = ((hdr.type & 0xFF00) == 0x0100);
 
     if (rle)
     {
-        const int tableLen = m_height * m_channels;
-        rowStart.resize(tableLen);
-        rowSize .resize(tableLen);
+        const size_t tableLen = static_cast<size_t>(m_height) * m_channels;
+        rowStart.assign(tableLen, 0U);        // ← CORREÇÃO: era 0UL
+        rowSize .assign(tableLen, 0U);        // ← CORREÇÃO: era 0UL
 
         fseek(f, 512, SEEK_SET);
-        fread(rowStart.data(), sizeof(unsigned long), tableLen, f);
-        fread(rowSize .data(), sizeof(unsigned long), tableLen, f);
+
+        size_t rsA = fread(rowStart.data(), sizeof(uint32_t), tableLen, f);  // ← sizeof(uint32_t)
+        if (rsA != tableLen) {
+            fclose(f);
+            throw std::runtime_error("Falha fread rowStart: " +
+                std::to_string(rsA) + "/" + std::to_string(tableLen));
+        }
+
+        size_t rsB = fread(rowSize.data(), sizeof(uint32_t), tableLen, f);   // ← sizeof(uint32_t)
+        if (rsB != tableLen) {
+            fclose(f);
+            throw std::runtime_error("Falha fread rowSize: " +
+                std::to_string(rsB) + "/" + std::to_string(tableLen));
+        }
 
         if (m_swapped)
         {
-            for (auto &v : rowStart) v = swapLong(v);
-            for (auto &v : rowSize)  v = swapLong(v);
+            for (size_t i = 0; i < tableLen; ++i)
+            {
+                rowStart[i] = swapLong(rowStart[i]);
+                rowSize[i]  = swapLong(rowSize[i]);
+            }
         }
+
+        for (size_t i = 0; i < tableLen; ++i)
+        {
+            if (rowSize[i] > static_cast<uint32_t>(m_width) * 256)  // ← uint32_t
+            {
+                fclose(f);
+                throw std::runtime_error("rowSize[" + std::to_string(i) +
+                    "] inválido: " + std::to_string(rowSize[i]));
+            }
+        }
+
+        printf("Tabelas RLE OK: %zu entradas\n", tableLen);
     }
 
-    // --- Buffer temporário por canal ------------------------------------
-    // Máximo necessário: uma linha * 256 (headroom para RLE)
-    std::vector<unsigned char> tmpBuf(static_cast<std::size_t>(m_width) * 256);
+    // -----------------------------------------------------------------------
+    // Buffers
+    // -----------------------------------------------------------------------
+    const size_t maxRowSize = static_cast<size_t>(m_width) * 256;
+    std::vector<unsigned char> tmpBuf(maxRowSize);
 
-    // Canais separados para a linha corrente
-    std::vector<std::vector<unsigned char>> channels(m_channels,
-                                                      std::vector<unsigned char>(m_width));
+    std::vector<std::vector<unsigned char>> channels(
+        m_channels, std::vector<unsigned char>(m_width, 0));
 
-    // --- Buffer de saída intercalado ------------------------------------
-    m_data.resize(static_cast<std::size_t>(m_width) * m_height * m_channels);
+    const size_t totalSize = static_cast<size_t>(m_width) * m_height * m_channels;
+    m_data.resize(totalSize);
 
     unsigned char *out = m_data.data();
 
     for (int row = 0; row < m_height; ++row)
     {
-        // Ler cada canal da linha
         for (int ch = 0; ch < m_channels; ++ch)
             readRow(f, channels[ch].data(), row, ch, hdr.type, rowStart, rowSize, tmpBuf);
 
-        // Intercalar: pixel 0 ch0, pixel 0 ch1 … pixel 0 chN, pixel 1 ch0 …
         for (int px = 0; px < m_width; ++px)
             for (int ch = 0; ch < m_channels; ++ch)
                 *out++ = channels[ch][px];
@@ -189,7 +225,7 @@ void ImageLoader::load(const std::string &fileName)
 }
 
 // ---------------------------------------------------------------------------
-// loadTexture — cria e configura uma textura OpenGL a partir de um arquivo SGI
+// loadTexture
 // ---------------------------------------------------------------------------
 
 GLuint ImageLoader::loadTexture(const std::string &fileName)
@@ -202,21 +238,17 @@ GLuint ImageLoader::loadTexture(const std::string &fileName)
         glGenTextures(1, &texID);
         glBindTexture(GL_TEXTURE_2D, texID);
 
-        // Filtragem
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // Wrapping
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        // Enviar dados + gerar mipmaps automaticamente
         gluBuild2DMipmaps(
             GL_TEXTURE_2D,
-            img.getChannels(),      // componentes internos (1–4)
+            img.getChannels(),
             img.getWidth(),
             img.getHeight(),
-            img.getGLFormat(),      // GL_RGB, GL_RGBA, GL_LUMINANCE…
+            img.getGLFormat(),
             GL_UNSIGNED_BYTE,
             img.getData()
         );

@@ -1,20 +1,28 @@
 #include "Sala.h"
 #include "Cadeira.h"
 #include "CaixaSom.h"
-
+#include "ImageLoader.h"
 Sala::Sala(float px, float py, float pz,
            float psx, float psy, float psz,
            float pr, float pg, float pb,
-           float xg, float yg, float zg)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg)
+           float xg, float yg, float zg, GLuint textureID)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, textureID)
 {
     float esp = 0.2f;
+    textureID = ImageLoader::loadTexture("./assets/scorsese-1024x868.sgi");
+    GLuint textureChao = ImageLoader::loadTexture("./assets/images.sgi");
+    GLuint textureTeto = ImageLoader::loadTexture("./assets/soundfoam2.sgi");
+
+
 
     // 1. Chão
-    partes.push_back(
-        PolygonBuilder().at(0, -2.5f, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(20.0f, esp, 20.0f).build<Cube>());
-    partes.push_back(
-        PolygonBuilder().at(0.0f, -0.5f, 7.75).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(20.0f, esp, 4.5f).build<Cube>());
+    unique_ptr<Cube> chao1 = PolygonBuilder().at(0, -2.5f, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).textured(textureChao).scaled(20.0f, esp, 20.0f).build<Cube>();
+    chao1->setTypeTexture(TexturesTypes::REPEATE);
+    partes.push_back(move(chao1));
+    
+    unique_ptr<Cube> chao2 = PolygonBuilder().at(0.0f, -0.5f, 7.75).colored(pr - 0.05, pg - 0.05, pb - 0.05).textured(textureChao).scaled(20.0f, esp, 4.5f).build<Cube>();
+    chao2->setTypeTexture(TexturesTypes::REPEATE);
+    partes.push_back(move(chao2));
 
     partes.push_back(
         PolygonBuilder().at(9.75f, 0.5f, 7.75).rotated(0, -90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(2, 2.5, 1).build<Porta>());
@@ -22,9 +30,9 @@ Sala::Sala(float px, float py, float pz,
         PolygonBuilder().at(-9.75f, 0.5f, 7.75).rotated(0, 90, 0).colored(pr - 0.05, pg - 0.05, pb - 0.05).scaled(2, 2.5, 1).build<Porta>());
 
     // 2. Teto
-    partes.push_back(
-        PolygonBuilder().at(0, 2.5f, 0).colored(pr + 0.1f, pg + 0.1f, pb + 0.1f).scaled(20.0f, esp, 20.0f).build<Cube>());
-
+    unique_ptr<Cube> teto = PolygonBuilder().at(0, 2.5f, 0).colored(pr + 0.1f, pg + 0.1f, pb + 0.1f).textured(textureTeto).scaled(20.0f, esp, 20.0f).build<Cube>();
+    teto->setTypeTexture(TexturesTypes::REPEATE);
+    partes.push_back(move(teto));
     // 3. Parede Frontal
     partes.push_back(
         PolygonBuilder().at(0, 0, -10.0f).colored(pr, pg, pb).scaled(20.0f, 5.0f, esp).build<Cube>());
@@ -43,7 +51,7 @@ Sala::Sala(float px, float py, float pz,
 
     // Tela Branca
     partes.push_back(
-        PolygonBuilder().at(0.0f, 0.0f, -9.8f).colored(1.0f, 1.0f, 1.0f).scaled(8.0f, 3.5f, 0.1f).build<Cube>());
+        PolygonBuilder().at(0.0f, 0.0f, -9.8f).colored(1.0f, 1.0f, 1.0f).scaled(8.0f, 3.5f, 0.1f).textured(textureID).build<Cube>());
 
     // Faixas decorativas
     // Diagonais
@@ -132,8 +140,8 @@ float Row::calculateSpaceBetweenChairs(float tamanhoCadeira, float espacamento)
 Row::Row(float px, float py, float pz,
          float psx, float psy, float psz,
          float pr, float pg, float pb,
-         float xg, float yg, float zg)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg)
+         float xg, float yg, float zg, GLuint textureID)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, textureID)
 {
     float tamanhoCadeira = 1.05f;
     float espacamento = 0.05f;
@@ -191,8 +199,8 @@ void Row::draw() const
 Porta::Porta(float px, float py, float pz,
              float psx, float psy, float psz,
              float pr, float pg, float pb,
-             float xg, float yg, float zg)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg)
+             float xg, float yg, float zg, GLuint textureID)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, textureID)
 {
     PolygonBuilder builder;
 

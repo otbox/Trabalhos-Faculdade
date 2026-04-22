@@ -5,11 +5,12 @@
 #include <vector>
 #include <stdexcept>
 #include <cstdio>
+#include <cstdint>
 
 #ifdef __APPLE__
-#  include <OpenGL/glu.h>
+#include <OpenGL/glu.h>
 #else
-#  include <GL/glu.h>
+#include <GL/glu.h>
 #endif
 
 /**
@@ -36,20 +37,20 @@ public:
     ~ImageLoader() = default;
 
     // Sem cópia (dados pesados); movível.
-    ImageLoader(const ImageLoader &)            = delete;
+    ImageLoader(const ImageLoader &) = delete;
     ImageLoader &operator=(const ImageLoader &) = delete;
-    ImageLoader(ImageLoader &&)                 = default;
-    ImageLoader &operator=(ImageLoader &&)      = default;
+    ImageLoader(ImageLoader &&) = default;
+    ImageLoader &operator=(ImageLoader &&) = default;
 
     // -----------------------------------------------------------------------
     // Acesso aos dados da imagem
     // -----------------------------------------------------------------------
 
     /** Largura em pixels. */
-    int getWidth()    const { return m_width;    }
+    int getWidth() const { return m_width; }
 
     /** Altura em pixels. */
-    int getHeight()   const { return m_height;   }
+    int getHeight() const { return m_height; }
 
     /**
      * Número de canais (profundidade):
@@ -94,40 +95,41 @@ private:
     // Estrutura interna do arquivo SGI
     // -----------------------------------------------------------------------
 
-    static constexpr unsigned short IMAGIC      = 0x01DA;
+    static constexpr unsigned short IMAGIC = 0x01DA;
     static constexpr unsigned short IMAGIC_SWAP = 0xDA01;
 
-    #pragma pack(push, 1)
+#pragma pack(push, 1)
     struct SgiHeader
     {
         unsigned short imagic;
         unsigned short type;
         unsigned short dim;
         unsigned short sizeX, sizeY, sizeZ;
-        unsigned long  minVal, maxVal;
-        unsigned long  wasteBytes;
-        char           name[80];
-        unsigned long  colorMap;
+        uint32_t minVal, maxVal;
+        uint32_t wasteBytes;
+        char name[80];
+        uint32_t colorMap;
     };
-    #pragma pack(pop)
+#pragma pack(pop)
 
     // -----------------------------------------------------------------------
     // Estado
     // -----------------------------------------------------------------------
 
-    int  m_width    = 0;
-    int  m_height   = 0;
-    int  m_channels = 0;
-    bool m_swapped  = false;
+    int m_width = 0;
+    int m_height = 0;
+    int m_channels = 0;
+    bool m_swapped = false;
 
-    std::vector<unsigned char> m_data;   ///< Buffer final intercalado (RGBRGB… ou RGBARGBA…)
+    std::vector<unsigned char> m_data;
 
     // -----------------------------------------------------------------------
     // Helpers internos
     // -----------------------------------------------------------------------
 
-    static unsigned short swapShort(unsigned short v);
-    static unsigned long  swapLong (unsigned long  v);
+    unsigned short swapShort(unsigned short v);
+    static uint32_t swapLong(uint32_t v);
+    std::vector<uint32_t> rowStart, rowSize;
 
     void load(const std::string &fileName);
 
@@ -136,9 +138,9 @@ private:
                  unsigned char *buf,
                  int y, int z,
                  unsigned short type,
-                 const std::vector<unsigned long> &rowStart,
-                 const std::vector<unsigned long> &rowSize,
-                 std::vector<unsigned char>       &tmpBuf) const;
+                 const std::vector<uint32_t> &rowStart,
+                 const std::vector<uint32_t> &rowSize,
+                 std::vector<unsigned char> &tmpBuf) const;
 };
 
 #endif // IMAGE_LOADER_H

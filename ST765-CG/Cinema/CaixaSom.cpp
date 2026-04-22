@@ -3,8 +3,8 @@
 CaixaSom::CaixaSom(float px, float py, float pz,
                    float psx, float psy, float psz,
                    float pr, float pg, float pb,
-                   float xg, float yg, float zg)
-    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg)
+                   float xg, float yg, float zg, GLuint textureID)
+    : Polygon(px, py, pz, psx, psy, psz, pr, pg, pb, xg, yg, zg, textureID)
 {
     PolygonBuilder builder;
 

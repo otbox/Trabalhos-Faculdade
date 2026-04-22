@@ -13,7 +13,7 @@ public:
     CaixaSom(float px, float py, float pz,
              float psx, float psy, float psz,
              float pr, float pg, float pb,
-             float xg = 0, float yg = 0, float zg = 0);
+             float xg = 0, float yg = 0, float zg = 0, GLuint textureID = 0);
 
     void draw() const override;
 };
